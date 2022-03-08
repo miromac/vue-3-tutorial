@@ -2,9 +2,21 @@
   <div class="app">
     <form>
       <h4>New post</h4>
-      <input class="input" type="text" placeholder="Title">
-      <input class="input" type="text" placeholder="Description">
-      <button class="btn">Create</button>
+      <input
+        v-bind:value="title"
+        @input="title = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="Title"
+      >
+      <input
+        v-bind:value="body"
+        @input="body = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="Description"
+      >
+      <button class="btn" @click="createPost">Create</button>
     </form>
     <div class="post" v-for="post in posts">
       <div><strong>Title:</strong> {{post.title}} </div>
@@ -23,11 +35,20 @@ export default {
         { id: 3, title: 'React', body: 'React post description'},
         { id: 4, title: 'Vue', body: 'Vue post description'},
         { id: 5, title: 'Next', body: 'Next post description'}
-      ]
+      ],
+      title: '',
+      body: ''
     }
   },
   methods: {
-    
+    createPost() {
+      const newPost = {
+        id: Date.now(),
+        title: this.title,
+        body: this.body,
+      }
+      this.posts.push(newPost);
+    }
   }
 }
 </script>
