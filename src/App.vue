@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <form>
+    <form @submit.prevent>
       <h4>New post</h4>
       <input
         v-bind:value="title"
@@ -48,6 +48,8 @@ export default {
         body: this.body,
       }
       this.posts.push(newPost);
+      this.title = '';
+      this.body = '';
     }
   }
 }
