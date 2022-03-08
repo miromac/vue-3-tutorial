@@ -1,12 +1,24 @@
 <template>
   <div>
-    <div>
-      <button @click="addLike">Like</button>
-      <button @click="addDislike">Dislike</button>
+    <div class="post">
+      <div><strong>Title:</strong> Post about JavaScript</div>
+      <div><strong>Description:</strong> JavaScript, often abbreviated JS,
+        is a programming language that is one of the core technologies of the World Wide Web,
+        alongside HTML and CSS.</div>
     </div>
-    <div>Amount of likes: <strong>{{ likes }}</strong></div>
-    <div>Amount of dislikes: <strong>{{ dislikes }}</strong></div>
-  </div>
+    <div class="post">
+      <div><strong>Title:</strong> Post about JavaScript</div>
+      <div><strong>Description:</strong> JavaScript, often abbreviated JS,
+        is a programming language that is one of the core technologies of the World Wide Web,
+        alongside HTML and CSS.</div>
+    </div>
+    <div class="post">
+      <div><strong>Title:</strong> Post about JavaScript</div>
+      <div><strong>Description:</strong> JavaScript, often abbreviated JS,
+        is a programming language that is one of the core technologies of the World Wide Web,
+        alongside HTML and CSS.</div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -29,7 +41,16 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+.post {
+  padding: 15px;
+  border: 2px solid teal;
+}
 </style>
 
 // Single file component
