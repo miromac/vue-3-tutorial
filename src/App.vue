@@ -1,22 +1,8 @@
 <template>
   <div>
-    <div class="post">
-      <div><strong>Title:</strong> Post about JavaScript</div>
-      <div><strong>Description:</strong> JavaScript, often abbreviated JS,
-        is a programming language that is one of the core technologies of the World Wide Web,
-        alongside HTML and CSS.</div>
-    </div>
-    <div class="post">
-      <div><strong>Title:</strong> Post about JavaScript</div>
-      <div><strong>Description:</strong> JavaScript, often abbreviated JS,
-        is a programming language that is one of the core technologies of the World Wide Web,
-        alongside HTML and CSS.</div>
-    </div>
-    <div class="post">
-      <div><strong>Title:</strong> Post about JavaScript</div>
-      <div><strong>Description:</strong> JavaScript, often abbreviated JS,
-        is a programming language that is one of the core technologies of the World Wide Web,
-        alongside HTML and CSS.</div>
+    <div class="post" v-for="post in posts">
+      <div><strong>Title:</strong> {{post.title}} </div>
+      <div><strong>Description:</strong> {{post.body}} </div>
     </div>
 </div>
 </template>
@@ -25,17 +11,17 @@
 export default {
   data() {
     return {
-      likes: 0,
-      dislikes: 5,
+      posts: [
+        { id: 1, title: 'Javascript', body: 'Javascript post description'},
+        { id: 2, title: 'Angular', body: 'Angular post description'},
+        { id: 3, title: 'React', body: 'React post description'},
+        { id: 4, title: 'Vue', body: 'Vue post description'},
+        { id: 5, title: 'Next', body: 'Next post description'}
+      ]
     }
   },
   methods: {
-    addLike() {
-      this.likes += 1;
-    },
-    addDislike() {
-      this.dislikes += 1;
-    }
+    
   }
 }
 </script>
@@ -48,6 +34,7 @@ export default {
 }
 
 .post {
+  margin: 15px;
   padding: 15px;
   border: 2px solid teal;
 }
