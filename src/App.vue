@@ -1,13 +1,18 @@
 <template>
   <div class="app">
     <h1>Posts</h1>
-    <!-- <my-button @click="fetchPosts"> Get axios posts</my-button> -->
-    <my-button
+    <div class="app_btns">
+      <my-button
       @click="showDialog"
-      style="margin: 15px 0"
-    >
-      New post
-    </my-button>
+
+      >
+        New post
+      </my-button>
+      <my-select
+        v-model="selectedSort"
+        :options="sortOptions"
+      />
+    </div>
     <my-dialog v-model:show="dialogVisible">
       <post-form
       @create="createPost"
@@ -26,22 +31,22 @@
 import PostForm from '@/components/PostForm.vue';
 import PostList from '@/components/PostList.vue';
 import axios from 'axios';
+import MySelect from '@/components/UI/MySelect.vue';
 
 export default {
   components: {
-    PostList, PostForm
+    PostList, PostForm, MySelect
   },
   data() {
     return {
-      posts: [
-        // { id: 1, title: 'Javascript', body: 'Javascript post description'},
-        // { id: 2, title: 'Angular', body: 'Angular post description'},
-        // { id: 3, title: 'React', body: 'React post description'},
-        // { id: 4, title: 'Vue', body: 'Vue post description'},
-        // { id: 5, title: 'Next', body: 'Next post description'}
-      ],
+      posts: [],
       dialogVisible: false,
       isPostsLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'By title'},
+        {value: 'body', name: 'By content'},
+      ]
     }
   },
   methods: {
@@ -62,7 +67,7 @@ export default {
           const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
           this.posts = response.data;
           //this.isPostsLoading = false; // Comment out for loading effect and in finally block comment in
-        }, 3000)
+        }, 1000)
         
       } catch (e) {
         alert('Error')
@@ -87,7 +92,11 @@ export default {
 .app {
   padding: 20px;
 }
-
+.app_btns {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+}
 </style>
 
 // Single file component
