@@ -1,12 +1,18 @@
 <template>
-  <div class="post" v-for="post in posts">
-      <div><strong>Title:</strong> {{post.title}} </div>
-      <div><strong>Description:</strong> {{post.body}} </div>
-    </div>
+  <div>
+    <h3>Users list</h3>
+    <post-item
+      v-for="post in posts"
+      :post="post"
+      v-bind:key="post" 
+    />
+  </div>
 </template>
 
 <script>
+import PostItem from '@/components/PostItem.vue'
 export default {
+  components: { PostItem },
   props: {
     posts: {
       type: Array,
@@ -17,9 +23,5 @@ export default {
 </script>
 
 <style scoped>
-.post {
-  margin: 15px;
-  padding: 15px;
-  border: 2px solid teal;
-}
+
 </style>
