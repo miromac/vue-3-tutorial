@@ -1,10 +1,11 @@
 <template>
   <div>
-    <h3>Users list</h3>
+    <h3>Posts list</h3>
     <post-item
       v-for="post in posts"
       :post="post"
-      v-bind:key="post" 
+      :key="post.id" 
+      @remove="$emit('remove', post)"
     />
   </div>
 </template>
