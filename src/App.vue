@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <h1>Posts</h1>
-    <my-button @click="fetchPosts"> Get axios posts</my-button>
+    <!-- <my-button @click="fetchPosts"> Get axios posts</my-button> -->
     <my-button
       @click="showDialog"
       style="margin: 15px 0"
@@ -16,7 +16,9 @@
     <post-list
       :posts="posts"
       @remove="removePost"
+      v-if="!isPostsLoading"
     />
+    <div v-else>POSTS FROM jsonplaceholder.typicode.com ARE LOADING...</div>
   </div>
 </template>
 
@@ -32,14 +34,14 @@ export default {
   data() {
     return {
       posts: [
-        { id: 1, title: 'Javascript', body: 'Javascript post description'},
-        { id: 2, title: 'Angular', body: 'Angular post description'},
-        { id: 3, title: 'React', body: 'React post description'},
-        { id: 4, title: 'Vue', body: 'Vue post description'},
-        { id: 5, title: 'Next', body: 'Next post description'}
+        // { id: 1, title: 'Javascript', body: 'Javascript post description'},
+        // { id: 2, title: 'Angular', body: 'Angular post description'},
+        // { id: 3, title: 'React', body: 'React post description'},
+        // { id: 4, title: 'Vue', body: 'Vue post description'},
+        // { id: 5, title: 'Next', body: 'Next post description'}
       ],
       dialogVisible: false,
-      modificatorValue: ''
+      isPostsLoading: false,
     }
   },
   methods: {
@@ -55,13 +57,17 @@ export default {
     },
     async fetchPosts() {
       try {
+        this.isPostsLoading = true;
         setTimeout( async () => {
           const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
           this.posts = response.data;
-        }, 1000)
+          //this.isPostsLoading = false; // Comment out for loading effect and in finally block comment in
+        }, 3000)
         
       } catch (e) {
         alert('Error')
+      } finally {
+        this.isPostsLoading = false;
       }
     }
   },
