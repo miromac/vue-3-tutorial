@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <h1>Posts</h1>
+    <my-button @click="fetchPosts"> Get axios posts</my-button>
     <my-button
       @click="showDialog"
       style="margin: 15px 0"
@@ -22,8 +23,7 @@
 <script>
 import PostForm from '@/components/PostForm.vue';
 import PostList from '@/components/PostList.vue';
-import MyDialog from './components/UI/MyDialog.vue';
-import MyButton from './components/UI/MyButton.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -39,6 +39,7 @@ export default {
         { id: 5, title: 'Next', body: 'Next post description'}
       ],
       dialogVisible: false,
+      modificatorValue: ''
     }
   },
   methods: {
@@ -51,6 +52,14 @@ export default {
     },
     showDialog() {
       this.dialogVisible = true;
+    },
+    async fetchPosts() {
+      try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+        this.posts = response.data;
+      } catch (e) {
+        alert('Error')
+      }
     }
   }
 }
