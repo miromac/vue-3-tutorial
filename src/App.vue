@@ -22,20 +22,11 @@ export default {
         { id: 4, title: 'Vue', body: 'Vue post description'},
         { id: 5, title: 'Next', body: 'Next post description'}
       ],
-      title: '',
-      body: ''
     }
   },
   methods: {
-    createPost() {
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        body: this.body,
-      }
-      this.posts.push(newPost);
-      this.title = '';
-      this.body = '';
+    createPost(event) {
+      
     }
   }
 }

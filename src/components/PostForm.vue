@@ -2,20 +2,23 @@
   <form @submit.prevent>
     <h4>New post</h4>
     <input
-      v-bind:value="post.title"
-      @input="post.title = $event.target.value"
+      v-model="post.title"
       class="input"
       type="text"
       placeholder="Title"
     >
     <input
-      v-bind:value="post.body"
-      @input="post.body = $event.target.value"
+      v-model="post.body"
       class="input"
       type="text"
       placeholder="Description"
     >
-    <button class="btn">Create</button>
+    <button
+      class="btn"
+      @click="createPost"
+    >
+      Create
+    </button>
   </form>
 </template>
 
@@ -28,7 +31,13 @@ export default {
         body: ''
       }
     }
-  }
+  },
+  createPost() {
+      this.post.id = Date.now(),
+      this.posts.push(newPost);
+      this.title = '';
+      this.body = '';
+    }
 }
 </script>
 
