@@ -28,7 +28,7 @@
       v-if="!isPostsLoading"
     />
     <div v-else>POSTS FROM jsonplaceholder.typicode.com ARE LOADING...</div>
-    <div class="observer"></div>
+    <div ref="observer" class="observer"></div>
   </div>
   <!-- <div class="page_wrapper">
     <div
@@ -107,7 +107,7 @@ export default {
     },
     async loadMorePosts() {
       try {
-        this.isPostsLoading = true;
+        this.page += 1;
         setTimeout( async () => {
           const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
             params: {
@@ -122,18 +122,25 @@ export default {
       } catch (e) {
         alert('Error')
       } finally {
-        this.isPostsLoading = false;
       }
     }
   },
   mounted() {
     this.fetchPosts();
-
+    console.log(this.$refs.observer);
     let options = {
       rootMargin: '0px',
       threshold: 1.0
     }
+
+    let callback = (entries, observer) => {
+      if (entries[0].isIntersecting && this.page < this.totalPages) {
+        this.loadMorePosts()
+      }
+    }
+
     let observer = new IntersectionObserver(callback, options);
+    observer.observe(this.$refs.observer);
   },
   computed: {
     sortedPosts() {
