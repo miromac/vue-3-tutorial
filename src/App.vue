@@ -31,11 +31,15 @@
   </div>
   <div class="page_wrapper">
     <div
-      v-for="page in totalPages"
-      :key="page"
+      v-for="pageNumber in totalPages"
+      :key="pageNumber"
       class="page"
+      :class="{
+        'current-page': page === pageNumber
+      }"
+      @click="changePage(pageNumber)"
     >
-      {{ page }}
+      {{ pageNumber }}
     </div>
   </div>
 </template>
@@ -77,6 +81,9 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
+    changePage(pageNumber) {
+      this.page = pageNumber;
+    },
     async fetchPosts() {
       try {
         this.isPostsLoading = true;
@@ -110,7 +117,9 @@ export default {
     }
   },
   watch: {
-
+    page() {
+      this.fetchPosts();
+    }
   }
 }
 </script>
