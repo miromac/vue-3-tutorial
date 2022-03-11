@@ -29,6 +29,15 @@
     />
     <div v-else>POSTS FROM jsonplaceholder.typicode.com ARE LOADING...</div>
   </div>
+  <div class="page_wrapper">
+    <div
+      v-for="page in totalPages"
+      :key="page"
+      class="page"
+    >
+      {{ page }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -48,6 +57,9 @@ export default {
       isPostsLoading: false,
       selectedSort: '',
       searchQuery: '',
+      page: 1,
+      limit: 10,
+      totalPages: 0,
       sortOptions: [
         {value: 'title', name: 'By title'},
         {value: 'body', name: 'By content'},
@@ -69,9 +81,14 @@ export default {
       try {
         this.isPostsLoading = true;
         setTimeout( async () => {
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
+            params: {
+              _page: this.page,
+              _limit: this.limit
+            }
+          });
+          this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit);
           this.posts = response.data;
-          //this.isPostsLoading = false; // Comment out for loading effect and in finally block comment in
         }, 1000)
         
       } catch (e) {
@@ -112,6 +129,17 @@ export default {
   margin: 15px 0;
   display: flex;
   justify-content: space-between;
+}
+.page_wrapper {
+  display: flex;
+  margin-top: 10px;
+}
+.page {
+  border: 1px solid black;
+  padding: 10px;
+}
+.current-page {
+  border: 2px solid teal;
 }
 </style>
 
