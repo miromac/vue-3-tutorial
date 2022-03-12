@@ -4,14 +4,14 @@
     <div class="navbar_btns">
       <my-button @click="$router.push('/posts')">Posts</my-button>
       <my-button style="margin-left: 20px" @click="$router.push('/about')">About</my-button>
+      <my-button style="margin-left: 20px" @click="$router.push('/store')">Store</my-button>
     </div>
   </div>
 </template>
 
 <script>
-import MyButton from './UI/MyButton.vue'
 export default {
-
+  
 }
 </script>
 
